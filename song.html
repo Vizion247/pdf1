@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Song Media</title>
+    <style>
+        /* Add your styling here */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="song-title">Song Title</h1>
+        <div class="button-group">
+            <button id="pdf-button">View PDF</button>
+            <button id="audio-button">Play Audio</button>
+            <button id="video-button">Play Video</button>
+        </div>
+        <audio id="audio-player" controls style="display:none;"></audio>
+        <video id="video-player" controls width="400" style="display:none;"></video>
+    </div>
+
+    <script>
+        const songs = [
+            { title: "Grace on Top of Grace", pdf: "pdf-files/Grace-on-Top-of-Grace.pdf", audio: "pdf-files/graceontopofgrace.mp3", video: "pdf-files/Graceontopofgrace(1).mp4" },
+          //  { title: "Yet Not I but through Christ in Me", pdf: "pdf-files/Christ-The-Sure-and-Steady-Anchor.pdf", audio: "pdf-files/graceontopofgrace.mp3", video: "pdf-files/testvid.mp4" },
+            // Add more songs as needed
+        ];
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const songIndex = parseInt(urlParams.get('song'));
+        const song = songs[songIndex];
+
+        document.getElementById('song-title').textContent = song.title;
+
+        const pdfButton = document.getElementById('pdf-button');
+        const audioButton = document.getElementById('audio-button');
+        const videoButton = document.getElementById('video-button');
+
+        pdfButton.onclick = () => openPDF(song.pdf);
+        audioButton.onclick = () => playAudio(song.audio);
+        videoButton.onclick = () => playVideo(song.video);
+
+        function openPDF(pdfPath) {
+            window.open(pdfPath, '_blank');
+        }
+
+        function playAudio(audioPath) {
+            const audioPlayer = document.getElementById('audio-player');
+            audioPlayer.src = audioPath;
+            audioPlayer.style.display = 'block';
+            audioPlayer.play();
+        }
+
+        function playVideo(videoPath) {
+            const videoPlayer = document.getElementById('video-player');
+            videoPlayer.src = videoPath;
+            videoPlayer.style.display = 'block';
+            videoPlayer.play();
+        }
+    </script>
+</body>
+</html>

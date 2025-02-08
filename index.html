@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crossroads Music Songs</title>
+    <style>
+        /* Add your styling here */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Crossroads Music Songs</h1>
+        <input type="text" id="search-bar" placeholder="Search songs...">
+        <div id="song-list"></div>
+    </div>
+
+    <script>
+        const songs = [
+            { title: "Grace on Top of Grace", pdf: "pdf-files/Grace-on-Top-of-Grace.pdf", audio: "pdf-files/graceontopofgrace.mp3", video: "pdf-files/Graceontopofgrace(1).mp4" },
+           // { title: "Yet Not I but through Christ in Me", pdf: "pdf-files/Christ-The-Sure-and-Steady-Anchor.pdf", audio: "pdf-files/graceontopofgrace.mp3", video: "pdf-files/testvid.mp4" },
+            // Add more songs as needed
+        ];
+
+        const songList = document.getElementById('song-list');
+
+        function displaySongs(songs) {
+            songList.innerHTML = ""; // Clear previous song list
+
+            songs.forEach((song, index) => {
+                const songDiv = document.createElement('div');
+                songDiv.className = 'song-title';
+                songDiv.textContent = song.title;
+                songDiv.addEventListener('click', () => navigateToSongPage(index));
+                songList.appendChild(songDiv);
+            });
+        }
+
+        function navigateToSongPage(index) {
+            const song = songs[index];
+            const songPageUrl = `song.html?song=${index}`;
+            window.location.href = songPageUrl;
+        }
+
+        displaySongs(songs); // Initial display of songs
+
+        const searchBar = document.getElementById('search-bar');
+        searchBar.addEventListener('input', () => {
+            const searchTerm = searchBar.value.toLowerCase();
+            const filteredSongs = songs.filter(song =>
+                song.title.toLowerCase().includes(searchTerm)
+            );
+            displaySongs(filteredSongs);
+        });
+    </script>
+</body>
+</html>
